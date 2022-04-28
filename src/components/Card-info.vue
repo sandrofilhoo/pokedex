@@ -72,18 +72,18 @@ const details = computed(()=> prop.details)
     </div>
       <div 
         class="type">
-          <p v-for="(ability,index) in details.types" 
-          :key="index">
+          <div class="tag" v-for="(ability,index) in details.types" 
+          :key="index" :style="{ backgroundColor:  labelColors[ability.type.name ] }">
           <strong>
             {{ labelTypes[ability.type.name] }}
           </strong>
-          </p>
+          </div>
         
       </div>
     <div class="info">
       <div class="info-size">
-        <p><strong> peso: {{ details.height }}</strong></p>
-        <p><strong> altura: {{ details.weight }}</strong></p>
+        <p><strong> Peso: {{ details.height }}</strong></p>
+        <p><strong> Altura: {{ details.weight }}</strong></p>
       </div>
       <div 
         class="ability" 
@@ -137,9 +137,10 @@ const details = computed(()=> prop.details)
   color: #d9d9d9;
 }
 .type{
+  margin: 0 40px;
   padding: 5px;
+  justify-content: center;
   display: flex;
-  justify-content: space-around;
   color: #fff;
 }
 
@@ -151,6 +152,13 @@ strong{
   text-align: center;
   font-size: 20px;
   text-transform: uppercase;
+}
+
+.tag{
+  padding: 5px 10px;
+  margin: 2px;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
 }
 
 @media (max-width: 700px) {
