@@ -61,9 +61,10 @@ const currentImg = computed(()=>{
 h3{
   text-align: center;
   color: #868686;
+  font-weight: 600;
 }
 strong{
-  font-weight: 500;
+  font-weight: 600;
   color: #000;
 }
 .card .img{

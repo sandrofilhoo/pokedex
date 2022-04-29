@@ -1,24 +1,17 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from "vue-router"
 import { ref, onMounted, reactive, computed } from "vue"
-import HelloWorld from "@/components/HelloWorld.vue"
-import Card from "@/components/Card.vue"
-import CardInfo from "@/components/Card-info.vue"
+import CardPokemon from "@/components/CardPokemon.vue"
+import CardInfo from "@/components/CardInfo.vue"
 import api from "@/services/api.ts"
+import Header from "@/components/Header.vue"
 
-interface Pokemon {
-	url: string
-	name: string
-}
 interface Details {
 	array: Array<any>
 }
 
 const state = reactive({ pokemons: [] })
-var showCard: boolean = false
 
 onMounted(async () => {
-	showCard = true
 	state.pokemons = await api.getList()
 })
 const pokemons = computed(() => {
@@ -33,63 +26,40 @@ const handleCardClick = (data: Details) => {
 </script>
 
 <template>
-	<header>
-		<img
-			alt="Pokedex"
-			class="logo"
-			src="@/assets/Pokemon-Yellow-Logo-No-Background.png"
-			width="200"
-			height="70"
-		/>
-	</header>
+	<Header/>
 	<div class="wrapper">
 		<div class="info">
 
 			<CardInfo v-if="pokemonDetais" :details="pokemonDetais" />
     </div>
-		<div class="line">
-			<Card
+		<div class="pokemon-group">
+			<CardPokemon
 				v-for="(pokemon,index) in pokemons"
 				:key="index"
 				:item="pokemon"
-        :position="index"
+        		:position="index"
 				:url="pokemon.url"
 				@pokemon-info="handleCardClick"
 			/>
 		</div>
 	</div>
-	<!-- <RouterView /> -->
 </template>
 
 <style>
 @import "@/assets/base.css";
-.line {
+.pokemon-group {
 	display: flex;
 	flex-wrap: wrap;
 	align-content: flex-start;
-  max-height: 600px;
-  overflow: auto;
-  text-align: justify;
-  word-break: break-all;
+	max-height: 600px;
+	overflow: auto;
+	text-align: justify;
+	word-break: break-all;
 }
 #app {
 	font-weight: normal;
 }
 
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  border-radius: 2px;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #d9d9d9;
-  border-radius: 10px;
-}
 header {
   background-color: #DC2626;
 	width: 100%;
