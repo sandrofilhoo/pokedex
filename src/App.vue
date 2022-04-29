@@ -4,10 +4,7 @@ import CardPokemon from "@/components/CardPokemon.vue"
 import CardInfo from "@/components/CardInfo.vue"
 import api from "@/services/api.ts"
 import Header from "@/components/Header.vue"
-
-interface Details {
-	array: Array<any>
-}
+import type { Pokemon } from "@/helpers/interface.ts"
 
 const state = reactive({ pokemons: [] })
 
@@ -18,9 +15,9 @@ const pokemons = computed(() => {
 	return state.pokemons
 })
 
-const pokemonDetais = ref<Details| null>(null)
+const pokemonDetais = ref<Pokemon| null>()
 
-const handleCardClick = (data: Details) => {
+const handleCardClick = (data: Pokemon) => {
 	pokemonDetais.value = data
 }
 </script>
@@ -29,9 +26,8 @@ const handleCardClick = (data: Details) => {
 	<Header/>
 	<div class="wrapper">
 		<div class="info">
-
-			<CardInfo v-if="pokemonDetais" :details="pokemonDetais" />
-    </div>
+			<CardInfo v-if="pokemonDetais" :pokemon="pokemonDetais" />
+    	</div>
 		<div class="pokemon-group">
 			<CardPokemon
 				v-for="(pokemon,index) in pokemons"

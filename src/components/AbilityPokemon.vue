@@ -2,19 +2,20 @@
 import { computed } from 'vue'
 import { defineProps } from 'vue'
 import { statlabels, pokemonTypes, pokemonColors} from "@/helpers/data.ts"
+import type { Ability } from "@/helpers/interface.ts"
 
 const prop = defineProps<{
-  tag: any
+  ability: Ability
 }>()
 
-const tag = computed(()=> prop.tag)
+const ability = computed(()=> prop.ability)
 
 </script>
 
 <template>
     <div class="tag">
         <strong>
-          {{ tag.ability.name }}
+          {{ ability.ability.name }}
         </strong>
     </div>
 </template>

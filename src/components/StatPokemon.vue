@@ -2,12 +2,13 @@
 import { computed } from 'vue'
 import { defineProps } from 'vue'
 import { statlabels, pokemonTypes, pokemonColors} from "@/helpers/data.ts"
+import type { Stat } from "@/helpers/interface.ts"
 
 const prop = defineProps<{
-  details: any
+  stat: Stat
 }>()
 
-const stat = computed(()=> prop.details)
+const stat = computed(()=> prop.stat)
 
 </script>
 

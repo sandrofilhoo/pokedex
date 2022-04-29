@@ -2,21 +2,17 @@
 import { ref, onMounted, reactive, computed } from 'vue'
 import { defineProps } from 'vue'
 import api from '@/services/api.ts'
+import type { Pokemon } from "@/helpers/interface.ts"
 
-
-interface Item {
-  url: number;
-  name: string;
-}
 
 const prop = defineProps<{
-  item: Item
+  item: Pokemon
   position: number
 }>()
 
 const emit = defineEmits(['pokemonInfo'])
 
-var pokemon = ref<any>({})
+var pokemon = ref<Pokemon>({})
 
 onMounted(async () => {
   pokemon.value = await api.get(prop.item.url)

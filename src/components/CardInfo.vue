@@ -1,54 +1,54 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { defineProps } from 'vue'
+import { computed, defineProps } from 'vue'
 import { statlabels, pokemonTypes, pokemonColors} from "@/helpers/data.ts"
 import StatPokemon from "@/components/StatPokemon.vue"
 import AbilityPokemon from "@/components/AbilityPokemon.vue"
+import type { Pokemon } from "@/helpers/interface.ts"
 
 const prop = defineProps<{
-  details: any
+  pokemon: Pokemon
 }>()
 
-const details = computed(()=> prop.details)
+const pokemon = computed(()=> prop.pokemon)
 
 </script>
 
 <template>
-  <div class="card" :style="{ backgroundColor:  pokemonColors[details.types[0].type.name] }">
+  <div class="card" :style="{ backgroundColor:  pokemonColors[pokemon.types[0].type.name] }">
     <div class="img">
-      <img :src="details?.sprites?.front_default" alt="sla">
+      <img :src="pokemon.sprites.front_default" alt="sla">
     </div>
     <div class="title">
-      <h3>{{ details.name }}</h3>
+      <h3>{{ pokemon.name }}</h3>
     </div>
       <div 
         class="type">
-          <div class="tag" v-for="(ability,index) in details.types" 
-          :key="index" :style="{ backgroundColor:  pokemonColors[ability.type.name ] }">
+          <div class="tag" v-for="(type,index) in pokemon.types" 
+          :key="index" :style="{ backgroundColor:  pokemonColors[type.type.name ] }">
           <strong>
-            {{ pokemonTypes[ability.type.name] }}
+            {{ pokemonTypes[type.type.name] }}
           </strong>
           </div>
         
       </div>
     <div class="info">
       <div class="info-size">
-        <p class="mr-5"><strong> Peso: {{ details.height }}</strong></p>
-        <p><strong> Altura: {{ details.weight }}</strong></p>
+        <p class="mr-5"><strong> Peso: {{ pokemon.height }}</strong></p>
+        <p><strong> Altura: {{ pokemon.weight }}</strong></p>
       </div>
         <h3>Habilidades:</h3>
       <div 
         class="ability-group" 
          >
-        <AbilityPokemon :style="{ backgroundColor:  pokemonColors[details.types[0].type.name] }" 
-          v-for="(ability,index) in details.abilities" 
+        <AbilityPokemon :style="{ backgroundColor:  pokemonColors[pokemon.types[0].type.name] }" 
+          v-for="(ability,index) in pokemon.abilities" 
           :key="index" 
-          :tag="ability"/>
+          :ability="ability"/>
       </div>
       <div 
         class="stat">
-          <StatPokemon class="d-flex" v-for="(stat,index) in details.stats" 
-          :key="index" :details="stat"/>
+          <StatPokemon class="d-flex" v-for="(stat,index) in pokemon.stats" 
+          :key="index" :stat="stat"/>
       </div>
     </div>
   </div>
